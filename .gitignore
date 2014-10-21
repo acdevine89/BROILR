@@ -36,7 +36,7 @@ Thumbs.db
 .gradle
 build/
 
-/*.iml
+*.iml
 
 ## Directory-based project format:
 .idea/
