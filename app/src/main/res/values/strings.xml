@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">BROILR</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="broilr">broilr</string>
     <string name="dislike_button_text">Bleh.</string>
     <string name="like_button_text">Yummy!</string>
     <string name="action_settings">Settings</string>
