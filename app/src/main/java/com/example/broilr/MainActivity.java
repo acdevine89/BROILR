@@ -2,10 +2,13 @@ package com.example.broilr;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -25,14 +28,16 @@ public class MainActivity extends Activity {
         mDislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, R.string.dislike_toast, Toast.LENGTH_SHORT).show();
+                Toast dislikeToast = Toast.makeText(MainActivity.this, R.string.dislike_toast, Toast.LENGTH_SHORT);
+                showCustomToast(dislikeToast);
             }
         });
 
         mLikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, R.string.like_toast, Toast.LENGTH_SHORT).show();
+                Toast likeToast = Toast.makeText(MainActivity.this, R.string.like_toast, Toast.LENGTH_SHORT);
+                showCustomToast(likeToast);
             }
         });
     }
@@ -57,5 +62,12 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void showCustomToast(Toast toast) {
+        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 500);
+        LinearLayout toastLayout = (LinearLayout) toast.getView();
+        TextView toastTV = (TextView) toastLayout.getChildAt(0);
+        toastTV.setTextSize(30);
+        toast.show();
+    }
 
 }
