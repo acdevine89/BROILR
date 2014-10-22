@@ -26,7 +26,7 @@
 
         <Button
             android:id="@+id/dislike_button"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content"
             android:text="@string/dislike_button_text"
             android:layout_marginRight="20dp"
@@ -36,7 +36,7 @@
 
         <Button
             android:id="@+id/like_button"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/button_width"
             android:layout_height="wrap_content"
             android:text="@string/like_button_text"
             android:layout_marginLeft="20dp"
