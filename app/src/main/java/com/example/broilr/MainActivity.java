@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Stack;
+
 
 public class MainActivity extends Activity {
 
@@ -40,6 +42,8 @@ public class MainActivity extends Activity {
                 showCustomToast(likeToast);
             }
         });
+
+        // Add in food profile fragment somehow
     }
 
 
@@ -69,5 +73,4 @@ public class MainActivity extends Activity {
         toastTV.setTextSize(30);
         toast.show();
     }
-
 }
