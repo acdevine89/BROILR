@@ -9,11 +9,11 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:text="@string/broilr"
+        android:text="@string/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#f78f1e"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         />
