@@ -2,6 +2,9 @@
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
+# Ignore .txt files
+*.txt
+
 # Android Studio stuff
 #built application files
 *.apk
