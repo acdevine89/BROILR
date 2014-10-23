@@ -3,7 +3,9 @@ package com.example.broilr;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.net.HttpURLConnection;
@@ -34,7 +36,7 @@ public class FoodProfileStacker {
 
             // DO THE WORK OF SETTING UP A URL CONNECTION, see ForecastFragment.java in Sunshine
             // Inludes try, catch, and finally for IOException
-            // If this code works, it fills foodProfileJsonString with a string represenation
+            // If this code works, it fills foodProfileJsonString with a string representation
             // of ALL our JSON data.
 
             // Now do a try, catch on getting meaningful data from JSON,
@@ -65,13 +67,44 @@ public class FoodProfileStacker {
             // WHY?!?! Because JSONArrays and JSONObjects have tools built in to help us find data
             // by the keys we described above.
 
+            JSONArray jsonArray = new JSONArray(foodProfileJsonString);
+
             // Create an empty stack of food profiles that we'll fill.
-            Stack<FoodProfile> foodProfileStack;
+            Stack<FoodProfile> foodProfileStack = null;
+
+
             // 2. Iterate the JSONArray to find a JSONObject at each index,
             //    then start filling FoodProfile objects with the data you find.
             //    The format in pseudocode is JSONObject foodProfileObject = JSONArray.getJSONObject(i);
             //    data = foodProfileObject.getString(KEY);
             //    FoodProfile.setData(data);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                FoodProfile thisFoodProfile = new FoodProfile();
+                JSONObject jsonFoodProfile = jsonArray.getJSONObject(i);
+
+                int profileID = jsonFoodProfile.getInt(API_BROILR_PROFILEID);
+                thisFoodProfile.setProfileID(profileID);
+
+                String imgURL = jsonFoodProfile.getString(API_BROILR_IMGURL);
+                thisFoodProfile.setImgURL(imgURL);
+
+                String name = jsonFoodProfile.getString(API_BROILR_NAME);
+                thisFoodProfile.setName(name);
+
+                String age = jsonFoodProfile.getString(API_BROILR_AGE);
+                thisFoodProfile.setAge(age);
+
+                String lastActive = jsonFoodProfile.getString(API_BROILR_LASTACTIVE);
+                thisFoodProfile.setLastActive(lastActive);
+
+                String bio = jsonFoodProfile.getString(API_BROILR_BIO);
+                thisFoodProfile.setBio(bio);
+
+                foodProfileStack.push(thisFoodProfile);
+            }
+
+
 
             return null; // Replace null later with foodProfileStack
         }
