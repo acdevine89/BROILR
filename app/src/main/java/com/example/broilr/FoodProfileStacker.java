@@ -140,7 +140,7 @@ public class FoodProfileStacker {
             JSONArray jsonArray = new JSONArray(foodProfileJsonString);
 
             // Create an empty stack of food profiles that we'll fill.
-            Stack<FoodProfile> foodProfileStack = null;
+            Stack<FoodProfile> foodProfileStack = new Stack<FoodProfile>();
 
 
             // 2. Iterate the JSONArray to find a JSONObject at each index,
@@ -174,7 +174,7 @@ public class FoodProfileStacker {
                 foodProfileStack.push(thisFoodProfile);
             }
 
-            return null; // Replace null later with foodProfileStack
+            return foodProfileStack; // Replace null later with foodProfileStack
 
         }
 

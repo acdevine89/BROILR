@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
         if (fragment == null) {
             fragment = new FoodProfileFragment();
             fm.beginTransaction()
-                    .add(R.id.foodProfileFragment, fragment)
+                    .add(R.id.foodProfileContainer, fragment)
                     .commit();
         }
 
