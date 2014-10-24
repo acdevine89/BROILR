@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Stack;
 
 /**
@@ -31,6 +33,8 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
 
     @Override
     public void foodProfilesAreReady(Stack<FoodProfile> foodProfileStack) {
-
+        
+        String imgURL = thisFoodProfile.getImgURL();
+        Picasso.with(context).load(imgURL).into(imageView);
     }
 }

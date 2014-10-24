@@ -3,6 +3,8 @@ package com.example.broilr;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +53,7 @@ public class FoodProfileStacker {
 
             return foodProfileStack;
         }
+
 
         private Stack<FoodProfile> getFoodProfilesFromJson(String foodProfileJsonString)
                 throws JSONException {
@@ -104,10 +107,10 @@ public class FoodProfileStacker {
                 foodProfileStack.push(thisFoodProfile);
             }
 
-
-
             return null; // Replace null later with foodProfileStack
+
         }
+
 
         @Override
         protected void onPostExecute(Stack<FoodProfile> foodProfileStack) {
