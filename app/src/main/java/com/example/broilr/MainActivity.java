@@ -1,6 +1,8 @@
 package com.example.broilr;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -26,6 +28,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FragmentManager fm = getFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.foodProfileFragment);
+
+        if (fragment == null) {
+            fragment = new FoodProfileFragment();
+            fm.beginTransaction()
+                    .add(R.id.foodProfileFragment, fragment)
+                    .commit();
+        }
+
         mLikeButton = (Button) findViewById(R.id.like_button);
         mDislikeButton = (Button) findViewById(R.id.dislike_button);
 
@@ -45,8 +57,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        // Add in food profile fragment somehow
-        // 
     }
 
 
