@@ -1,12 +1,19 @@
 package com.example.broilr;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Stack;
 
 /**
@@ -37,8 +44,68 @@ public class FoodProfileStacker {
             // If this code works, it fills foodProfileJsonString with a string represenation
             // of ALL our JSON data.
 
+            try {
+                // Construct the URL for the OpenWeatherMap query
+                // Possible parameters are available at OWM's forecast API page, at
+                // http://openweathermap.org/API#forecast
+                final String BASE_URL = "http://private-e083d-broilrspec.apiary-mock.com/profiles";
+
+
+                URL url = new URL(BASE_URL);
+
+
+                // Create the request to Apiary, and open the connection
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.connect();
+
+                // Read the input stream into a String
+                InputStream inputStream = urlConnection.getInputStream();
+                StringBuffer buffer = new StringBuffer();
+                if (inputStream == null) {
+                    // Nothing to do.
+                    return null;
+                }
+                reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
+                    // But it does make debugging a *lot* easier if you print out the completed
+                    // buffer for debugging.
+                    buffer.append(line + "\n");
+                }
+
+                if (buffer.length() == 0) {
+                    // Stream was empty. No point in parsing.
+                    return null;
+                }
+                foodProfileJsonString = buffer.toString();
+
+                Log.v(LOG_TAG, "FoodProfile JSON String: " + foodProfileJsonString);
+
+            } catch (IOException e) {
+                Log.e(LOG_TAG, "Error ", e);
+                // If the code didn't successfully get the weather data, there's no point in attempting
+                // to parse it.
+                return null;
+            } finally {
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (final IOException e) {
+                        Log.e(LOG_TAG, "Error closing stream", e);
+                    }
+                }
+            }
+
+
             // Now do a try, catch on getting meaningful data from JSON,
             // and setting it to attributes of FoodProfiles in a stack.
+
+
             try {
                 foodProfileStack = getFoodProfilesFromJson(foodProfileJsonString);
             }
@@ -65,16 +132,54 @@ public class FoodProfileStacker {
             // WHY?!?! Because JSONArrays and JSONObjects have tools built in to help us find data
             // by the keys we described above.
 
+            JSONArray newJsonArray = new JSONArray(foodProfileJsonString);
             // Create an empty stack of food profiles that we'll fill.
-            Stack<FoodProfile> foodProfileStack;
-            // 2. Iterate the JSONArray to find a JSONObject at each index,
-            //    then start filling FoodProfile objects with the data you find.
-            //    The format in pseudocode is JSONObject foodProfileObject = JSONArray.getJSONObject(i);
-            //    data = foodProfileObject.getString(KEY);
-            //    FoodProfile.setData(data);
+            Stack<FoodProfile> foodProfileStack = new Stack<FoodProfile>();
 
-            return null; // Replace null later with foodProfileStack
+            //this iterates through the jsonarray
+            for(int i = 0; i < newJsonArray.length(); i++) {
+            //this next line finds the json object at each index
+                JSONObject foodProfileJsonObject = newJsonArray.getJSONObject(i);
+               //this is the place where we put our stuff from the JSON object
+                FoodProfile foodProfileThing = new FoodProfile();
+
+                int foodIDValue = foodProfileJsonObject.getInt(API_BROILR_PROFILEID);
+                foodProfileThing.setProfileID(foodIDValue);
+
+                String foodImageURL = foodProfileJsonObject.getString(API_BROILR_IMGURL);
+                foodProfileThing.setImgURL(foodImageURL);
+
+                String foodName = foodProfileJsonObject.getString(API_BROILR_NAME);
+                foodProfileThing.setName(foodName);
+
+                String foodAge = foodProfileJsonObject.getString(API_BROILR_AGE);
+                foodProfileThing.setAge(foodAge);
+
+                String foodLastActive = foodProfileJsonObject.getString(API_BROILR_LASTACTIVE);
+                foodProfileThing.setLastActive(foodLastActive);
+
+                String foodBio = foodProfileJsonObject.getString(API_BROILR_BIO);
+                foodProfileThing.setBio(foodBio);
+
+            foodProfileStack.push(foodProfileThing);
+            }
+
+
+            return foodProfileStack;
         }
+
+
+//        @Override
+//        protected void onPostExecute(String[] result) {
+//            if (result != null) {
+//                mForecastAdapter.clear();
+//                for(String dayForecastStr : result) {
+//                    mForecastAdapter.add(dayForecastStr);
+//                }
+//                // New data is back from the server. Hooray!
+//            }
+//        }
+
 
         @Override
         protected void onPostExecute(Stack<FoodProfile> foodProfileStack) {

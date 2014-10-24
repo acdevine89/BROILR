@@ -24,8 +24,7 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return null; // Swap out with a view later
     }
 
