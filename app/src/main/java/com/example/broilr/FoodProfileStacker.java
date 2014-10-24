@@ -20,6 +20,11 @@ import java.util.Stack;
  * Created by mattlauer on 2014-10-22.
  */
 public class FoodProfileStacker {
+    private OnFoodProfileStackReadyListener listener;
+
+    public FoodProfileStacker(OnFoodProfileStackReadyListener listener) {
+        this.listener = listener;
+    }
 
     public void refreshFoodProfiles() {
         new FetchFoodProfileTask().execute();
@@ -183,7 +188,9 @@ public class FoodProfileStacker {
 
         @Override
         protected void onPostExecute(Stack<FoodProfile> foodProfileStack) {
-            // Nothing yet, update later!
+            if (FoodProfileStacker.this.listener != null) {
+                FoodProfileStacker.this.listener.foodProfilesAreReady(foodProfileStack);
+            }
         }
     }
 }
