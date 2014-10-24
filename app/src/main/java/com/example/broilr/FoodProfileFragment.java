@@ -33,7 +33,7 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
 
     @Override
     public void foodProfilesAreReady(Stack<FoodProfile> foodProfileStack) {
-        
+
         String imgURL = thisFoodProfile.getImgURL();
         Picasso.with(context).load(imgURL).into(imageView);
     }
