@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         FragmentManager fm = getFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.foodProfileFragment);
+        Fragment fragment = fm.findFragmentById(R.id.foodProfileContainer);
 
         if (fragment == null) {
             fragment = new FoodProfileFragment();
