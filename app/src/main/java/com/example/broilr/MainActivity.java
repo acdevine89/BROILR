@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
         });
 
         // Add in food profile fragment somehow
+        // 
     }
 
 

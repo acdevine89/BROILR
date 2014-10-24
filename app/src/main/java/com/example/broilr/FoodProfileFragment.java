@@ -15,6 +15,8 @@ import java.util.Stack;
  */
 public class FoodProfileFragment extends Fragment implements OnFoodProfileStackReadyListener{
 
+    FoodProfileStacker stacker = new FoodProfileStacker(this);
+
     public FoodProfileFragment() {
 
     }
@@ -26,9 +28,14 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return null; // Swap out with a view later
+    }
+
+    @Override
+    public void onResume() {    // Useful for when the view is hidden and then shown again.
+        super.onResume();
+        stacker.refreshFoodProfiles();
     }
 
     @Override
