@@ -3,7 +3,6 @@ package com.example.broilr;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,8 +44,8 @@ public class FoodProfileStacker {
             Stack<FoodProfile> foodProfileStack;
 
             // DO THE WORK OF SETTING UP A URL CONNECTION, see ForecastFragment.java in Sunshine
-            // Inludes try, catch, and finally for IOException
-            // If this code works, it fills foodProfileJsonString with a string represenation
+            // Includes try, catch, and finally for IOException
+            // If this code works, it fills foodProfileJsonString with a string representation
             // of ALL our JSON data.
 
             try {
@@ -122,6 +121,7 @@ public class FoodProfileStacker {
             return foodProfileStack;
         }
 
+
         private Stack<FoodProfile> getFoodProfilesFromJson(String foodProfileJsonString)
                 throws JSONException {
 
@@ -137,44 +137,48 @@ public class FoodProfileStacker {
             // WHY?!?! Because JSONArrays and JSONObjects have tools built in to help us find data
             // by the keys we described above.
 
-            JSONArray newJsonArray = new JSONArray(foodProfileJsonString);
+            JSONArray jsonArray = new JSONArray(foodProfileJsonString);
+
             // Create an empty stack of food profiles that we'll fill.
-            Stack<FoodProfile> foodProfileStack = new Stack<FoodProfile>();
+            Stack<FoodProfile> foodProfileStack = null;
 
-            //this iterates through the jsonarray
-            for(int i = 0; i < newJsonArray.length(); i++) {
-            //this next line finds the json object at each index
-                JSONObject foodProfileJsonObject = newJsonArray.getJSONObject(i);
-               //this is the place where we put our stuff from the JSON object
-                FoodProfile foodProfileThing = new FoodProfile();
 
-                int foodIDValue = foodProfileJsonObject.getInt(API_BROILR_PROFILEID);
-                foodProfileThing.setProfileID(foodIDValue);
+            // 2. Iterate the JSONArray to find a JSONObject at each index,
+            //    then start filling FoodProfile objects with the data you find.
+            //    The format in pseudocode is JSONObject foodProfileObject = JSONArray.getJSONObject(i);
+            //    data = foodProfileObject.getString(KEY);
+            //    FoodProfile.setData(data);
 
-                String foodImageURL = foodProfileJsonObject.getString(API_BROILR_IMGURL);
-                foodProfileThing.setImgURL(foodImageURL);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                FoodProfile thisFoodProfile = new FoodProfile();
+                JSONObject jsonFoodProfile = jsonArray.getJSONObject(i);
 
-                String foodName = foodProfileJsonObject.getString(API_BROILR_NAME);
-                foodProfileThing.setName(foodName);
+                int profileID = jsonFoodProfile.getInt(API_BROILR_PROFILEID);
+                thisFoodProfile.setProfileID(profileID);
 
-                String foodAge = foodProfileJsonObject.getString(API_BROILR_AGE);
-                foodProfileThing.setAge(foodAge);
+                String imgURL = jsonFoodProfile.getString(API_BROILR_IMGURL);
+                thisFoodProfile.setImgURL(imgURL);
 
-                String foodLastActive = foodProfileJsonObject.getString(API_BROILR_LASTACTIVE);
-                foodProfileThing.setLastActive(foodLastActive);
+                String name = jsonFoodProfile.getString(API_BROILR_NAME);
+                thisFoodProfile.setName(name);
 
-                String foodBio = foodProfileJsonObject.getString(API_BROILR_BIO);
-                foodProfileThing.setBio(foodBio);
+                String age = jsonFoodProfile.getString(API_BROILR_AGE);
+                thisFoodProfile.setAge(age);
 
-            foodProfileStack.push(foodProfileThing);
+                String lastActive = jsonFoodProfile.getString(API_BROILR_LASTACTIVE);
+                thisFoodProfile.setLastActive(lastActive);
+
+                String bio = jsonFoodProfile.getString(API_BROILR_BIO);
+                thisFoodProfile.setBio(bio);
+
+                foodProfileStack.push(thisFoodProfile);
             }
 
+            return null; // Replace null later with foodProfileStack
 
-            return foodProfileStack;
         }
 
-
-//        @Override
+        //        @Override
 //        protected void onPostExecute(String[] result) {
 //            if (result != null) {
 //                mForecastAdapter.clear();
@@ -185,7 +189,6 @@ public class FoodProfileStacker {
 //            }
 //        }
 
-
         @Override
         protected void onPostExecute(Stack<FoodProfile> foodProfileStack) {
             if (FoodProfileStacker.this.listener != null) {
@@ -194,3 +197,4 @@ public class FoodProfileStacker {
         }
     }
 }
+
