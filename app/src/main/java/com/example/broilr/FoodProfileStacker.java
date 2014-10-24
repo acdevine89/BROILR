@@ -35,7 +35,7 @@ public class FoodProfileStacker {
             Stack<FoodProfile> foodProfileStack;
 
             // DO THE WORK OF SETTING UP A URL CONNECTION, see ForecastFragment.java in Sunshine
-            // Inludes try, catch, and finally for IOException
+            // Includes try, catch, and finally for IOException
             // If this code works, it fills foodProfileJsonString with a string representation
             // of ALL our JSON data.
 
