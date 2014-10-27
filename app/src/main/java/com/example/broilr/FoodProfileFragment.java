@@ -81,10 +81,10 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
         foodProfileText1.setText(name);
 
         String food_age = thisFoodProfile.getAge();
-        foodProfileText2.setText(food_age);
+        foodProfileText2.setText(food_age + " old");
 
         String last_active = thisFoodProfile.getLastActive();
-        foodProfileText3.setText(last_active);
+        foodProfileText3.setText("Last active " + last_active + " ago");
 
         String food_bio = thisFoodProfile.getBio();
         foodProfileText4.setText(food_bio);
