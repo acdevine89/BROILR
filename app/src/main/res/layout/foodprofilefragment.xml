@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="10"
     android:orientation="vertical">
-    <ImageView
+        <ImageView
         android:id="@+id/img_url"
         android:layout_width="match_parent"
         android:layout_weight="3"
         android:layout_height="250dp"/>
     <!--tools:background="#ff0000"/>-->
-    <TextView
+        <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="this is the text for this field"/>
+        android:text="this is the text for this field"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
     <!--android:text="hgscdfhgcf"-->
     <!--tools:background="#00ff00"/>-->
     <LinearLayout
@@ -30,7 +36,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="this is the text for this field"/>
+            android:text="this is the text for this field"
+            android:textColor="#808080"
+            android:paddingBottom="7dp"/>
         <!--android:background="#00ffff"-->
         <!--android:text="hgscdfhgcf"/>-->
         <TextView
@@ -38,19 +46,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="this is the text for this field"/>
+            android:text="this is the text for this field"
+            android:textColor="#808080"
+            android:paddingBottom="7dp"/>
         <!--android:background="#0000ff"-->
         <!--android:text="hgscdfhgcf"/>-->
     </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/food_bio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="4"
-        android:text="this is the text for this field"/>
+        android:text="this is the text for this field"
+        android:paddingBottom="20dp"/>
     <!--android:background="#f78f1e"/>-->
     <!--<LinearLayout-->
     <!--android:layout_width="match_parent"-->
@@ -69,4 +78,5 @@
     <!--android:layout_weight="1"-->
     <!--android:background="#0000ff"/>-->
     <!--</LinearLayout>-->
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
