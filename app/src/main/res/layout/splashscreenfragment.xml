@@ -14,6 +14,8 @@
         android:id="@+id/heating_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
 
 </LinearLayout>
