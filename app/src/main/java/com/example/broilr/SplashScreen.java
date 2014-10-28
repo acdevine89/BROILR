@@ -4,6 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -11,6 +17,8 @@ import java.io.InputStream;
  * Created by anniedevine on 10/28/14.
  */
 public class SplashScreen extends Activity {
+
+
 
     /** Duration of wait **/
     private final int SPLASH_DISPLAY_LENGTH = 3000;
@@ -21,15 +29,15 @@ public class SplashScreen extends Activity {
         super.onCreate(icicle);
         setContentView(R.layout.splashscreenfragment);
 
-        InputStream stream = null;
-        try {
-            stream = getAssets().open("kissburger.gif");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        GifWebView view = new GifWebView(this, "file:///android_asset    /kissburger.gif");
+        ImageView splashScreenImage = (ImageView) findViewById(R.id.burger_gif);
+        TextView splashScreenText = (TextView) findViewById(R.id.heating_up);
 
-        setContentView(view);
+        splashScreenText.setText(getString(R.string.splash_screen_text));
+        splashScreenImage.setImageResource(R.drawable.burger);
+
+//        View splashScreenView = getLayoutInflater().inflate(R.layout.splashscreenfragment, get, false);
+//        splashScreenImage = (ImageView) splashScreenView.findViewById(R.id.burger_gif);
+//        splashScreenText = (TextView) splashScreenView.findViewById(R.id.heating_up);
 
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
