@@ -18,11 +18,11 @@ public class SplashScreen extends Activity {
 
             InputStream stream = null;
             try {
-                stream = getAssets().open("kissburger.gif");
+                stream = getAssets().open("burger.gif");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            GifWebView view = new GifWebView(this, "file:///android_asset    /kissburger.gif");
+            GifWebView view = new GifWebView(this, "file:///android_asset    /burger.gif");
 
             setContentView(view);
         }
