@@ -8,5 +8,6 @@
     <string name="dislike_toast">Yuck!</string>
     <string name="like_toast">Mmmmeaty.</string>
     <string name="action_settings">Settings</string>
+    <string name="splash_screen_text">Heating up...</string>
 
 </resources>
