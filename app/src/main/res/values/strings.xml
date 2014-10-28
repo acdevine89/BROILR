@@ -3,10 +3,10 @@
 
     <string name="app_name">broilr</string>
     <string name="header">is it hot in here?</string>
-    <string name="dislike_button_text">Bleh.</string>
-    <string name="like_button_text">Yummy!</string>
+    <string name="dislike_button_text">Bleh</string>
+    <string name="like_button_text">Yum!</string>
     <string name="dislike_toast">Yuck!</string>
-    <string name="like_toast">Mmmmeaty.</string>
+    <string name="like_toast">Mmmmeaty</string>
     <string name="action_settings">Settings</string>
 
 </resources>
