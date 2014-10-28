@@ -22,14 +22,14 @@ public class MainActivity extends Activity {
 
     Button mLikeButton;
     Button mDislikeButton;
+    FragmentManager fm = getFragmentManager();
+    FoodProfileFragment fragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        FragmentManager fm = getFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.foodProfileContainer);
 
         if (fragment == null) {
             fragment = new FoodProfileFragment();
@@ -44,16 +44,22 @@ public class MainActivity extends Activity {
         mDislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast dislikeToast = Toast.makeText(MainActivity.this, R.string.dislike_toast, Toast.LENGTH_SHORT);
-                showCustomToast(dislikeToast);
+                if (fragment.foodProfileStackSize() > 0) {
+                    Toast dislikeToast = Toast.makeText(MainActivity.this, R.string.dislike_toast, Toast.LENGTH_SHORT);
+                    Utils.showCustomToast(dislikeToast);
+                }
+                fragment.loadNewProfile();
             }
         });
 
         mLikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast likeToast = Toast.makeText(MainActivity.this, R.string.like_toast, Toast.LENGTH_SHORT);
-                showCustomToast(likeToast);
+                if (fragment.foodProfileStackSize() > 0) {
+                    Toast likeToast = Toast.makeText(MainActivity.this, R.string.like_toast, Toast.LENGTH_SHORT);
+                    Utils.showCustomToast(likeToast);
+                }
+                fragment.loadNewProfile();
             }
         });
 

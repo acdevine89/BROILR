@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +21,7 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
     FoodProfileStacker stacker = new FoodProfileStacker(this);
     ImageView foodProfileImage;
     TextView foodProfileText1, foodProfileText2, foodProfileText3, foodProfileText4;
+    Stack<FoodProfile> foodProfileStack = new Stack<FoodProfile>();
 
     public FoodProfileFragment() {
 
@@ -50,9 +52,28 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
     }
 
     @Override
-    public void foodProfilesAreReady(Stack<FoodProfile> foodProfileStack) {
+    public void foodProfilesAreReady(Stack<FoodProfile> firstFoodProfileStack) {
+        foodProfileStack = firstFoodProfileStack;
         FoodProfile thisFoodProfile = foodProfileStack.pop();
+        fillFoodProfile(thisFoodProfile);
+    }
 
+    public void loadNewProfile() {
+        if (foodProfileStackSize() > 0) {
+            FoodProfile nextFoodProfile = foodProfileStack.pop();
+            fillFoodProfile(nextFoodProfile);
+        }
+        else {
+            Toast noProfilesToast = Toast.makeText(getActivity(), "No new profiles!", Toast.LENGTH_LONG);
+            Utils.showCustomToast(noProfilesToast);
+        }
+    }
+
+    public int foodProfileStackSize() {
+        return foodProfileStack.size();
+    }
+
+    private void fillFoodProfile(FoodProfile thisFoodProfile) {
         String imgURL = thisFoodProfile.getImgURL();
         Picasso.with(getActivity()).load(imgURL).into(foodProfileImage);
 
@@ -60,10 +81,10 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
         foodProfileText1.setText(name);
 
         String food_age = thisFoodProfile.getAge();
-        foodProfileText2.setText(food_age);
+        foodProfileText2.setText(food_age + " old");
 
         String last_active = thisFoodProfile.getLastActive();
-        foodProfileText3.setText(last_active);
+        foodProfileText3.setText("Last active " + last_active + " ago");
 
         String food_bio = thisFoodProfile.getBio();
         foodProfileText4.setText(food_bio);
