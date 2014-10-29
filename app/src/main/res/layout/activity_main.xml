@@ -7,7 +7,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <!--<TextView-->
     <!--android:text="@string/header"-->
@@ -18,6 +19,7 @@
     <!--android:textStyle="bold"-->
     <!--android:layout_centerHorizontal="true"-->
     <!--/>-->
+
     <FrameLayout
         android:id="@+id/foodProfileContainer"
         android:layout_width="match_parent"
@@ -56,9 +58,6 @@
             android:textStyle="bold"
             android:textColor="#f78f1e"
             android:background = "@drawable/rounded_button"/>
-
-
-
 
     </LinearLayout>
 

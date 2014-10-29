@@ -1,5 +1,6 @@
 package com.example.broilr;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -24,7 +25,6 @@ public class MainActivity extends Activity {
     Button mDislikeButton;
     FragmentManager fm = getFragmentManager();
     FoodProfileFragment fragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,7 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem matchesItem = menu.findItem(R.id.matches_button);
         return true;
     }
 
@@ -79,11 +80,15 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+
+        if (id == R.id.matches_button) {
+            // Launch view matches activity from here
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     public void showCustomToast(Toast toast) {
         toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 500);
