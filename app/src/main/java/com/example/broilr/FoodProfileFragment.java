@@ -47,6 +47,8 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
 
     @Override
     public void onResume() {    // Useful for when the view is hidden and then shown again.
+        // Note that we'll want to edit this to bring back the current viewed profile, not reload everything.
+        // Likewise, we'll want to use another lifecycle method for minimizing the app.
         super.onResume();
         stacker.refreshFoodProfiles();
     }
