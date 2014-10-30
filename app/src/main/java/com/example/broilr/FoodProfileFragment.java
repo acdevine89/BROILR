@@ -20,8 +20,9 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
 
     FoodProfileStacker stacker = new FoodProfileStacker(this);
     ImageView foodProfileImage;
-    TextView foodProfileText1, foodProfileText2, foodProfileText3, foodProfileText4;
+    TextView foodProfileName, foodProfileAge, foodProfileLastActive, foodProfileBio;
     Stack<FoodProfile> foodProfileStack = new Stack<FoodProfile>();
+
 
     public FoodProfileFragment() {
 
@@ -36,11 +37,11 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.foodprofilefragment, container, false);
-        foodProfileImage = (ImageView) view.findViewById(R.id.img_url);
-        foodProfileText1 = (TextView) view.findViewById(R.id.name);
-        foodProfileText2 = (TextView) view.findViewById(R.id.food_age);
-        foodProfileText3 = (TextView) view.findViewById(R.id.last_active);
-        foodProfileText4 = (TextView) view.findViewById(R.id.food_bio);
+        foodProfileImage = (ImageView) view.findViewById(R.id.profile_img);
+        foodProfileName = (TextView) view.findViewById(R.id.name);
+        foodProfileAge = (TextView) view.findViewById(R.id.food_age);
+        foodProfileLastActive = (TextView) view.findViewById(R.id.last_active);
+        foodProfileBio = (TextView) view.findViewById(R.id.food_bio);
 
         return view; // Swap out with a view later
     }
@@ -80,15 +81,15 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
         Picasso.with(getActivity()).load(imgURL).into(foodProfileImage);
 
         String name = thisFoodProfile.getName();
-        foodProfileText1.setText(name);
+        foodProfileName.setText(name);
 
         String food_age = thisFoodProfile.getAge();
-        foodProfileText2.setText(food_age + " old");
+        foodProfileAge.setText(food_age + " old");
 
         String last_active = thisFoodProfile.getLastActive();
-        foodProfileText3.setText("Last active " + last_active + " ago");
+        foodProfileLastActive.setText("Last active " + last_active + " ago");
 
         String food_bio = thisFoodProfile.getBio();
-        foodProfileText4.setText(food_bio);
+        foodProfileBio.setText(food_bio);
     }
 }
