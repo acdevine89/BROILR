@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/burgers_making_out1" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out2" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out3" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out4" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out5" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out6" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out7" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out8" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out9" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out10" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out11" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out12" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out13" android:duration="100" />
+    <item android:drawable="@drawable/burgers_making_out14" android:duration="100" />
+</animation-list>
