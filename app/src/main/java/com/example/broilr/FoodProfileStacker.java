@@ -31,7 +31,7 @@ public class FoodProfileStacker {
         this.listener = listener;
     }
 
-    public void refreshFoodProfiles() {
+    public void fetchFoodProfiles() {
         new FetchFoodProfileTask().execute();
     }
 

@@ -16,13 +16,10 @@ import java.util.Stack;
 /**
  * Created by mattlauer on 2014-10-22.
  */
-public class FoodProfileFragment extends Fragment implements OnFoodProfileStackReadyListener{
+public class FoodProfileFragment extends Fragment {
 
-    FoodProfileStacker stacker = new FoodProfileStacker(this);
     ImageView foodProfileImage;
     TextView foodProfileName, foodProfileAge, foodProfileLastActive, foodProfileBio;
-    Stack<FoodProfile> foodProfileStack = new Stack<FoodProfile>();
-
 
     public FoodProfileFragment() {
 
@@ -31,7 +28,6 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //
     }
 
     @Override
@@ -46,37 +42,7 @@ public class FoodProfileFragment extends Fragment implements OnFoodProfileStackR
         return view; // Swap out with a view later
     }
 
-    @Override
-    public void onResume() {    // Useful for when the view is hidden and then shown again.
-        // Note that we'll want to edit this to bring back the current viewed profile, not reload everything.
-        // Likewise, we'll want to use another lifecycle method for minimizing the app.
-        super.onResume();
-        stacker.refreshFoodProfiles();
-    }
-
-    @Override
-    public void foodProfilesAreReady(Stack<FoodProfile> firstFoodProfileStack) {
-        foodProfileStack = firstFoodProfileStack;
-        FoodProfile thisFoodProfile = foodProfileStack.pop();
-        fillFoodProfile(thisFoodProfile);
-    }
-
-    public void loadNewProfile() {
-        if (foodProfileStackSize() > 0) {
-            FoodProfile nextFoodProfile = foodProfileStack.pop();
-            fillFoodProfile(nextFoodProfile);
-        }
-        else {
-            Toast noProfilesToast = Toast.makeText(getActivity(), "No new profiles!", Toast.LENGTH_LONG);
-            Utils.showCustomToast(noProfilesToast);
-        }
-    }
-
-    public int foodProfileStackSize() {
-        return foodProfileStack.size();
-    }
-
-    private void fillFoodProfile(FoodProfile thisFoodProfile) {
+    public void fillFoodProfileFragment(FoodProfile thisFoodProfile) {
         String imgURL = thisFoodProfile.getImgURL();
         Picasso.with(getActivity()).load(imgURL).into(foodProfileImage);
 

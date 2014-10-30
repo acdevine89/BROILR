@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,22 +20,28 @@ import com.squareup.picasso.Picasso;
 import java.util.Stack;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnFoodProfileStackReadyListener {
 
     Button mLikeButton;
     Button mDislikeButton;
+    Stack<FoodProfile> foodProfileStack = new Stack<FoodProfile>();
+    FoodProfileStacker stacker = new FoodProfileStacker(this);
     FragmentManager fm = getFragmentManager();
-    FoodProfileFragment fragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
+    FoodProfileFragment currentFoodProfileFragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
+    FoodProfileFragment nextFoodProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        stacker.fetchFoodProfiles();
         setContentView(R.layout.activity_main);
 
-        if (fragment == null) {
-            fragment = new FoodProfileFragment();
+
+        // fragmentBoss.initFoodProfileStack();
+        if (currentFoodProfileFragment == null) {
+            currentFoodProfileFragment = new FoodProfileFragment();
             fm.beginTransaction()
-                    .add(R.id.foodProfileContainer, fragment)
+                    .add(R.id.foodProfileContainer, currentFoodProfileFragment)
                     .commit();
         }
 
@@ -44,22 +51,49 @@ public class MainActivity extends Activity {
         mDislikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (fragment.foodProfileStackSize() > 0) {
+                if (foodProfileStack.size() > 0) {
                     Toast dislikeToast = Toast.makeText(MainActivity.this, R.string.dislike_toast, Toast.LENGTH_SHORT);
                     Utils.showCustomToast(dislikeToast);
+
+                    //sendFragmentLeft();
+
+                    if (nextFoodProfileFragment == null) {
+                        nextFoodProfileFragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
+                        fm.beginTransaction()
+                                .replace(R.id.foodProfileContainer, nextFoodProfileFragment)
+                                .commit();
+                    }
+
+                    nextFoodProfileFragment.fillFoodProfileFragment(getFoodProfileFromStack());
+                    //fadeFragmentIn();
                 }
-                fragment.loadNewProfile();
+                else {
+                    // Launch end page activity.
+                }
             }
         });
 
         mLikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (fragment.foodProfileStackSize() > 0) {
+                if (foodProfileStack.size() > 0) {
                     Toast likeToast = Toast.makeText(MainActivity.this, R.string.like_toast, Toast.LENGTH_SHORT);
                     Utils.showCustomToast(likeToast);
+
+                    //sendFragmentRight();
+
+                    if (nextFoodProfileFragment == null) {
+                        nextFoodProfileFragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
+                        fm.beginTransaction()
+                                .replace(R.id.foodProfileContainer, nextFoodProfileFragment)
+                                .commit();
+                    }
+                    nextFoodProfileFragment.fillFoodProfileFragment(getFoodProfileFromStack());
+                    //fadeFragmentIn();
                 }
-                fragment.loadNewProfile();
+                else {
+                    // Launch end page activity.
+                }
             }
         });
 
@@ -88,13 +122,33 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    public void showCustomToast(Toast toast) {
-        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 500);
-        LinearLayout toastLayout = (LinearLayout) toast.getView();
-        TextView toastTV = (TextView) toastLayout.getChildAt(0);
-        toastTV.setTextSize(30);
-        toast.show();
+    @Override
+    public void foodProfilesAreReady(Stack<FoodProfile> firstFoodProfileStack) {
+        foodProfileStack = firstFoodProfileStack;
+        // Only works if stack is set.
+        currentFoodProfileFragment.fillFoodProfileFragment(getFoodProfileFromStack());
     }
+
+    public void sendFragmentLeft() {
+        ScrollView profileScrollView = (ScrollView) findViewById(R.id.fragment_wrapper);
+        profileScrollView.animate().x(-1000);
+    }
+
+    public void sendFragmentRight() {
+        ScrollView profileScrollView = (ScrollView) findViewById(R.id.fragment_wrapper);
+        profileScrollView.animate().x(1000);
+    }
+
+    public void fadeFragmentIn() {
+        ScrollView profileScrollView = (ScrollView) findViewById(R.id.fragment_wrapper);
+        profileScrollView.animate().alpha(1);
+    }
+
+    public FoodProfile getFoodProfileFromStack() {
+        if (foodProfileStack.size() > 0) {
+            return foodProfileStack.pop();
+        }
+        return null;
+    }
+
 }
