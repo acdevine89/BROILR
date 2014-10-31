@@ -178,22 +178,6 @@ public class FoodProfileStacker {
 
         }
 
-<<<<<<< HEAD
-
-
-        //        @Override
-//        protected void onPostExecute(String[] result) {
-//            if (result != null) {
-//                mForecastAdapter.clear();
-//                for(String dayForecastStr : result) {
-//                    mForecastAdapter.add(dayForecastStr);
-//                }
-//                // New data is back from the server. Hooray!
-//            }
-//        }
-
-=======
->>>>>>> upstream/master
         @Override
         protected void onPostExecute(Stack<FoodProfile> foodProfileStack) {
             if (FoodProfileStacker.this.listener != null) {
