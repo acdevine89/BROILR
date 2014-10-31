@@ -17,6 +17,12 @@ import java.util.Stack;
 
 /**
  * Created by mattlauer on 2014-10-22.
+ *
+ * FoodProfileStacker prepares a stack of FoodProfiles to use in other pieces of code.
+ * It collects data from the Internet and loads it all into a stack of FoodProfiles that it then passes back.
+ * This is mostly a background Java class to do the work.
+ * It connects with an OnFoodProfileStackReadyListener, which can be implemented in an Activity.
+ *
  */
 public class FoodProfileStacker {
     private OnFoodProfileStackReadyListener listener;
@@ -25,7 +31,7 @@ public class FoodProfileStacker {
         this.listener = listener;
     }
 
-    public void refreshFoodProfiles() {
+    public void fetchFoodProfiles() {
         new FetchFoodProfileTask().execute();
     }
 
@@ -49,14 +55,10 @@ public class FoodProfileStacker {
             // of ALL our JSON data.
 
             try {
-                // Construct the URL for the OpenWeatherMap query
-                // Possible parameters are available at OWM's forecast API page, at
-                // http://openweathermap.org/API#forecast
+                // Currently our FoodProfile data is all on Apiary, at the URL below.
                 final String BASE_URL = "http://private-e083d-broilrspec.apiary-mock.com/profiles";
 
-
                 URL url = new URL(BASE_URL);
-
 
                 // Create the request to Apiary, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -105,10 +107,8 @@ public class FoodProfileStacker {
                 }
             }
 
-
             // Now do a try, catch on getting meaningful data from JSON,
             // and setting it to attributes of FoodProfiles in a stack.
-
 
             try {
                 foodProfileStack = getFoodProfilesFromJson(foodProfileJsonString);
@@ -178,6 +178,7 @@ public class FoodProfileStacker {
 
         }
 
+<<<<<<< HEAD
 
 
         //        @Override
@@ -191,6 +192,8 @@ public class FoodProfileStacker {
 //            }
 //        }
 
+=======
+>>>>>>> upstream/master
         @Override
         protected void onPostExecute(Stack<FoodProfile> foodProfileStack) {
             if (FoodProfileStacker.this.listener != null) {
