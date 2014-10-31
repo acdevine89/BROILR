@@ -1,9 +1,12 @@
 package com.example.broilr;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by mattlauer on 2014-10-22.
  */
-public class FoodProfile {
+public class FoodProfile implements Parcelable {
     private String imgURL;
     private String name;
     private String age;
@@ -58,4 +61,41 @@ public class FoodProfile {
     public void setProfileID(int profileID) {
         this.profileID = profileID;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.imgURL);
+        dest.writeString(this.name);
+        dest.writeString(this.age);
+        dest.writeString(this.lastActive);
+        dest.writeString(this.bio);
+        dest.writeInt(this.profileID);
+    }
+
+    public FoodProfile() {
+    }
+
+    private FoodProfile(Parcel in) {
+        this.imgURL = in.readString();
+        this.name = in.readString();
+        this.age = in.readString();
+        this.lastActive = in.readString();
+        this.bio = in.readString();
+        this.profileID = in.readInt();
+    }
+
+    public static final Parcelable.Creator<FoodProfile> CREATOR = new Parcelable.Creator<FoodProfile>() {
+        public FoodProfile createFromParcel(Parcel source) {
+            return new FoodProfile(source);
+        }
+
+        public FoodProfile[] newArray(int size) {
+            return new FoodProfile[size];
+        }
+    };
 }

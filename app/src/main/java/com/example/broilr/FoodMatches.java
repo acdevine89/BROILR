@@ -26,7 +26,6 @@ public class FoodMatches extends ListFragment {
     ArrayAdapter mArrayAdapter;
     List<FoodProfile> mNameList = new ArrayList<FoodProfile>();
 
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         //here I am requesting the built in list from the list fragment, and saving the reference to it.
@@ -67,6 +66,15 @@ public class FoodMatches extends ListFragment {
             return rowView;
 
         }
+    }
+
+
+    public static FoodMatches newInstance(ArrayList likedFoodProfiles) {
+        FoodMatches fragment = new FoodMatches();
+        Bundle matches = new Bundle();
+        matches.putParcelableArrayList("queue", likedFoodProfiles);
+        fragment.setArguments(matches);
+        return fragment;
     }
 
 }
