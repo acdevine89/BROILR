@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:padding="5dp">
+    <ImageView
+        android:id="@+id/food_pic"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/layerlist_circle_pic_pt2"
+        />
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/food_pic"
+        android:text="food name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/last_active_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/food_pic"
+        android:layout_below="@+id/name_text"
+        android:textColor="#808080"
+        android:text="last active"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"/>
+
+</RelativeLayout>
