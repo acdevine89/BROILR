@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 
@@ -29,6 +30,8 @@ public class MainActivity extends Activity implements OnFoodProfileStackReadyLis
     FragmentManager fm = getFragmentManager();
     FoodProfileFragment currentFoodProfileFragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
     FoodProfileFragment nextFoodProfileFragment;
+    FoodProfile currentFoodProfile = new FoodProfile();
+    ArrayList<FoodProfile> likedFoodProfiles = new ArrayList<FoodProfile>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,8 @@ public class MainActivity extends Activity implements OnFoodProfileStackReadyLis
                                 .commit();
                     }
 
-                    nextFoodProfileFragment.fillFoodProfileFragment(getFoodProfileFromStack());
+                    currentFoodProfile = getFoodProfileFromStack();
+                    nextFoodProfileFragment.fillFoodProfileFragment(currentFoodProfile);
                     //fadeFragmentIn();
                 }
                 else {
@@ -82,13 +86,16 @@ public class MainActivity extends Activity implements OnFoodProfileStackReadyLis
 
                     //sendFragmentRight();
 
+                    likedFoodProfiles.add(currentFoodProfile);
+
                     if (nextFoodProfileFragment == null) {
                         nextFoodProfileFragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
                         fm.beginTransaction()
                                 .replace(R.id.foodProfileContainer, nextFoodProfileFragment)
                                 .commit();
                     }
-                    nextFoodProfileFragment.fillFoodProfileFragment(getFoodProfileFromStack());
+                    currentFoodProfile = getFoodProfileFromStack();
+                    nextFoodProfileFragment.fillFoodProfileFragment(currentFoodProfile);
                     //fadeFragmentIn();
                 }
                 else {
@@ -126,7 +133,8 @@ public class MainActivity extends Activity implements OnFoodProfileStackReadyLis
     public void foodProfilesAreReady(Stack<FoodProfile> firstFoodProfileStack) {
         foodProfileStack = firstFoodProfileStack;
         // Only works if stack is set.
-        currentFoodProfileFragment.fillFoodProfileFragment(getFoodProfileFromStack());
+        currentFoodProfile = getFoodProfileFromStack();
+        currentFoodProfileFragment.fillFoodProfileFragment(currentFoodProfile);
     }
 
     public void sendFragmentLeft() {
