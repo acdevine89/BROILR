@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 
@@ -29,6 +30,7 @@ public class MainActivity extends Activity implements OnFoodProfileStackReadyLis
     FragmentManager fm = getFragmentManager();
     FoodProfileFragment currentFoodProfileFragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
     FoodProfileFragment nextFoodProfileFragment;
+    ArrayList<FoodProfileFragment> likedFoodProfiles = new ArrayList<FoodProfileFragment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,8 @@ public class MainActivity extends Activity implements OnFoodProfileStackReadyLis
                     Utils.showCustomToast(likeToast);
 
                     //sendFragmentRight();
+
+                    likedFoodProfiles.add(currentFoodProfileFragment);
 
                     if (nextFoodProfileFragment == null) {
                         nextFoodProfileFragment = (FoodProfileFragment) fm.findFragmentById(R.id.foodProfileContainer);
